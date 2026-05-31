@@ -228,7 +228,7 @@ body {
   background: var(--cream); color: var(--ink);
   border: none; border-radius: 999px;
   padding: 0.3em 1em;
-  font-size: clamp(25px, 1vw, 30px);
+  font-size: clamp(23px, 1vw, 30px);
   font-weight: 900;
   font-family: var(--font-display);
   letter-spacing: 0.12em;
