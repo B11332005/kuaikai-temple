@@ -215,7 +215,7 @@ function setLang(lang) {
   // hero 圖切換
   const heroImg = document.getElementById('hero-img');
   if (heroImg) {
-    heroImg.src = isZh ? 'hero.png' : 'hero-EN.png';
+    heroImg.src = isZh ? 'hero.png' : 'hero-en.png';
     heroImg.alt = isZh ? '綠上乖乖神殿' : 'Virtual Kuai Kuai Shrine';
   }
 }
