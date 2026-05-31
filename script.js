@@ -212,11 +212,15 @@ function setLang(lang) {
   document.getElementById('buy-text-zh').style.display = isZh ? '' : 'none';
   document.getElementById('buy-text-en').style.display = isZh ? 'none' : '';
 
-  // ── 神諭和指令強制顯示 ──  加這四行
-  const oracleZh = document.getElementById('oracle-zh');
-  const oracleEn = document.getElementById('oracle-en');
-  if (oracleZh) oracleZh.style.display = isZh ? '' : 'none';
-  if (oracleEn) oracleEn.style.display = isZh ? 'none' : '';
+   // ── 神諭和指令強制顯示 ──
+  const oracleZh  = document.getElementById('oracle-zh');
+  const oracleEn  = document.getElementById('oracle-en');
+  const commandZh = document.getElementById('command-zh');
+  const commandEn = document.getElementById('command-en');
+  if (oracleZh)  oracleZh.style.display  = isZh ? '' : 'none';
+  if (oracleEn)  oracleEn.style.display  = isZh ? 'none' : '';
+  if (commandZh) commandZh.style.display = isZh ? '' : 'none';
+  if (commandEn) commandEn.style.display = isZh ? 'none' : '';
 
   // hero 圖切換
   const heroImg = document.getElementById('hero-img');
