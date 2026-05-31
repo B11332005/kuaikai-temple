@@ -208,9 +208,15 @@ function setLang(lang) {
   document.querySelectorAll('.oracle-text-en,.command-text-en').forEach(el => el.style.display = isZh ? 'none' : '');
   document.getElementById('back-btn').textContent = isZh ? '← 返回' : '← Back';
 
-   // ── 購買按鈕中英切換 ── 加這兩行
+  // 購買按鈕
   document.getElementById('buy-text-zh').style.display = isZh ? '' : 'none';
   document.getElementById('buy-text-en').style.display = isZh ? 'none' : '';
+
+  // ── 神諭和指令強制顯示 ──  加這四行
+  const oracleZh = document.getElementById('oracle-zh');
+  const oracleEn = document.getElementById('oracle-en');
+  if (oracleZh) oracleZh.style.display = isZh ? '' : 'none';
+  if (oracleEn) oracleEn.style.display = isZh ? 'none' : '';
 
   // hero 圖切換
   const heroImg = document.getElementById('hero-img');
