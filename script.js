@@ -296,7 +296,7 @@ function spawnExplosion(container, info) {
   bt.style.color = info.flashColor;
   bt.style.textShadow = `0 0 20px ${info.flashColor}, 0 0 40px ${info.flashColor}`;
   bt.style.animationDelay = '0.1s';
-  bt.textContent = info.burstText;
+  bt.textContent = currentLang === 'zh' ? info.burstTextZh : info.burstTextEn;
   container.appendChild(bt);
 
   // ── 3. 碎片（包裝袋碎片感） ──────────────
