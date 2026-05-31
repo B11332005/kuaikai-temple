@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>乖乖神殿 — Kuai Kuai Temple</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── 語言切換 ── -->
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+  <button class="lang-btn"        onclick="setLang('en')">EN</button>
+</div>
+<button class="back-btn" id="back-btn" onclick="goBack()">← 返回</button>
+
+
+<!-- ════════════════════════════════════════
+     SCREEN 1 — LANDING
+     ════════════════════════════════════════ -->
+<div class="screen active" id="screen-landing">
+  <div class="halftone-bg"></div>
+
+  <!-- 背景裝飾圖 -->
+<img class="bg-deco"   src="deco.png"   alt="">
+
+  <!-- 裝飾星星 -->
+  <div class="deco-star" style="top:8%;left:6%;animation-delay:0s">
+    <svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 2 L17.5 14 L28 16 L17.5 18 L16 30 L14.5 18 L4 16 L14.5 14 Z" fill="#C49B00"/></svg>
+  </div>
+  <div class="deco-star" style="top:10%;right:8%;animation-delay:1.1s">
+    <svg width="22" height="22" viewBox="0 0 32 32"><path d="M16 2 L17.5 14 L28 16 L17.5 18 L16 30 L14.5 18 L4 16 L14.5 14 Z" fill="#C4453A"/></svg>
+  </div>
+  <div class="deco-star" style="bottom:15%;left:5%;animation-delay:0.6s">
+    <svg width="18" height="18" viewBox="0 0 32 32"><path d="M16 2 L17.5 14 L28 16 L17.5 18 L16 30 L14.5 18 L4 16 L14.5 14 Z" fill="#90C890"/></svg>
+  </div>
+  <div class="deco-star" style="bottom:18%;right:6%;animation-delay:1.6s">
+    <svg width="24" height="24" viewBox="0 0 32 32"><path d="M16 2 L17.5 14 L28 16 L17.5 18 L16 30 L14.5 18 L4 16 L14.5 14 Z" fill="#C49B00"/></svg>
+  </div>
+  <div class="deco-star" style="top:50%;left:3%;animation-delay:2s">
+    <svg width="14" height="14" viewBox="0 0 32 32"><path d="M16 2 L17.5 14 L28 16 L17.5 18 L16 30 L14.5 18 L4 16 L14.5 14 Z" fill="#F0EDD8"/></svg>
+  </div>
+  <div class="deco-star" style="top:45%;right:3%;animation-delay:0.4s">
+    <svg width="16" height="16" viewBox="0 0 32 32"><path d="M16 2 L17.5 14 L28 16 L17.5 18 L16 30 L14.5 18 L4 16 L14.5 14 Z" fill="#F0EDD8"/></svg>
+  </div>
+
+  <div class="landing-content">
+    <!-- 首圖 -->
+    <div class="hero-wrap fade-in">
+      <img class="hero-img" id="hero-img" src="hero.png" alt="綠上乖乖神殿">
+    </div>
+
+    <!-- 進入按鈕，緊接在圖片下方，margin-top: -40px 往上疊 -->
+    <button class="btn-enter fade-in-delay-1" onclick="goTo('screen-select')">
+      <span class="zh-text">✦ 進入神殿 ✦</span>
+      <span class="en-text" style="display:none">✦ ENTER THE TEMPLE ✦</span>
+    </button>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SCREEN 2 — SELECT GOD（綠 → 紅 → 黃）
+     ════════════════════════════════════════ -->
+<div class="screen" id="screen-select">
+  <div class="halftone-bg"></div>
+
+  <div class="select-header fade-in">
+    <h2 class="zh-text">選擇你的神明</h2>
+    <h2 class="en-text" style="display:none">Choose Your Deity</h2>
+    <p class="zh-text">今天你需要哪一位守護你？</p>
+    <p class="en-text" style="display:none">Which guardian do you seek today?</p>
+  </div>
+
+  <div class="gods-grid">
+
+    <!-- 綠色乖乖（第一位）-->
+    <div class="god-card green-card fade-in-delay-1" onclick="selectGod('green')">
+      <div class="god-card-inner">
+        <img class="god-bag-img" src="bag-green.png" alt="綠色乖乖 奶油椰子">
+        <div class="god-name zh-text">綠色乖乖</div>
+        <div class="god-name en-text" style="display:none">Green Kuai Kuai</div>
+        <div class="god-en-name" style="color:#3A7A3A;">LIFE & HEALTH</div>
+        <div class="god-domains">
+          <span class="domain-tag zh-text">健康</span>
+          <span class="domain-tag zh-text">心靈</span>
+          <span class="domain-tag zh-text">未來</span>
+          <span class="domain-tag zh-text">成長</span>
+          <span class="domain-tag zh-text">日常</span>
+          <span class="domain-tag en-text" style="display:none">Health</span>
+          <span class="domain-tag en-text" style="display:none">Wellness</span>
+          <span class="domain-tag en-text" style="display:none">Future</span>
+          <span class="domain-tag en-text" style="display:none">Growth</span>
+        </div>
+        <div class="god-cta zh-text">求籤 →</div>
+        <div class="god-cta en-text" style="display:none">Draw Fortune →</div>
+      </div>
+    </div>
+
+    <!-- 紅色乖乖（第二位）-->
+    <div class="god-card red-card fade-in-delay-2" onclick="selectGod('red')">
+      <div class="god-card-inner">
+        <img class="god-bag-img" src="bag-red.png" alt="紅色乖乖 香濃巧克力">
+        <div class="god-name zh-text">紅色乖乖</div>
+        <div class="god-name en-text" style="display:none">Red Kuai Kuai</div>
+        <div class="god-en-name" style="color:#C4453A;">LOVE & RELATIONSHIPS</div>
+        <div class="god-domains">
+          <span class="domain-tag zh-text">戀愛</span>
+          <span class="domain-tag zh-text">曖昧</span>
+          <span class="domain-tag zh-text">友情</span>
+          <span class="domain-tag zh-text">人際</span>
+          <span class="domain-tag zh-text">緣分</span>
+          <span class="domain-tag en-text" style="display:none">Romance</span>
+          <span class="domain-tag en-text" style="display:none">Friendship</span>
+          <span class="domain-tag en-text" style="display:none">Connection</span>
+          <span class="domain-tag en-text" style="display:none">Family</span>
+        </div>
+        <div class="god-cta zh-text">求籤 →</div>
+        <div class="god-cta en-text" style="display:none">Draw Fortune →</div>
+      </div>
+    </div>
+
+    <!-- 黃色乖乖（第三位）-->
+    <div class="god-card yellow-card fade-in-delay-3" onclick="selectGod('yellow')">
+      <div class="god-card-inner">
+        <img class="god-bag-img" src="bag-yellow.png" alt="黃色乖乖 五香">
+        <div class="god-name zh-text">黃色乖乖</div>
+        <div class="god-name en-text" style="display:none">Yellow Kuai Kuai</div>
+        <div class="god-en-name" style="color:#C49B00;">WEALTH & FORTUNE</div>
+        <div class="god-domains">
+          <span class="domain-tag zh-text">金錢</span>
+          <span class="domain-tag zh-text">學業</span>
+          <span class="domain-tag zh-text">事業</span>
+          <span class="domain-tag zh-text">考試</span>
+          <span class="domain-tag zh-text">投資</span>
+          <span class="domain-tag en-text" style="display:none">Money</span>
+          <span class="domain-tag en-text" style="display:none">Career</span>
+          <span class="domain-tag en-text" style="display:none">Exams</span>
+          <span class="domain-tag en-text" style="display:none">Investment</span>
+        </div>
+        <div class="god-cta zh-text">求籤 →</div>
+        <div class="god-cta en-text" style="display:none">Draw Fortune →</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SCREEN 3 — DRAWING
+     ════════════════════════════════════════ -->
+<div class="screen" id="screen-drawing">
+  <div class="halftone-bg"></div>
+
+  <div class="drawing-content">
+    <p class="drawing-label zh-text">神明正在感應中...</p>
+    <p class="drawing-label en-text" style="display:none">The deity is sensing your energy...</p>
+
+    <div class="bag-animation-container">
+      <img id="animated-bag-img" class="bag-state-idle" src="" alt="乖乖">
+      <!-- 爆炸特效層 -->
+      <div class="explosion-layer" id="explosion-layer"></div>
+    </div>
+
+    <button class="drawing-btn" id="draw-btn" onclick="startDrawing()">
+      <span class="zh-text">✦ 求籤 ✦</span>
+      <span class="en-text" style="display:none">✦ Draw Fortune ✦</span>
+    </button>
+
+    <p class="drawing-note zh-text">閉上眼睛，心中默想你的問題<br>感應到了，點擊求籤</p>
+    <p class="drawing-note en-text" style="display:none">Close your eyes, hold your question in mind<br>When ready, press to draw your fortune</p>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SCREEN 4 — RESULT
+     ════════════════════════════════════════ -->
+<div class="screen" id="screen-result">
+  <div class="halftone-bg"></div>
+
+  <div class="result-content">
+
+    <div class="result-badge" id="result-badge">
+      <span id="result-badge-text"></span>
+    </div>
+
+    <div class="oracle-card" id="oracle-card">
+      <span class="oracle-label zh-text">✦ 神 諭 ✦</span>
+      <span class="oracle-label en-text" style="display:none">✦ ORACLE ✦</span>
+      <p class="oracle-text-zh" id="oracle-zh"></p>
+      <p class="oracle-text-en" id="oracle-en"></p>
+    </div>
+
+    <div class="command-card" id="command-card">
+      <span class="command-label zh-text">✦ 乖乖指令 ✦</span>
+      <span class="command-label en-text" style="display:none">KUAI KUAI RITUAL</span>
+      <p class="command-text-zh" id="command-zh"></p>
+      <p class="command-text-en" id="command-en"></p>
+    </div>
+
+    <div class="buy-section">
+      <p class="buy-label zh-text"> ✦ 今天的你需要 ✦ </p>
+      <p class="buy-label en-text" style="display:none">— YOUR REMEDY TODAY —</p>
+      <button class="buy-btn" id="buy-btn" onclick="buyKuaiKuai()">
+        <span id="buy-text-zh"></span>
+        <span id="buy-text-en" style="display:none"></span>
+      </button>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn-again" onclick="drawAgain()">
+        <span class="zh-text">再抽一次</span>
+        <span class="en-text" style="display:none">Draw Again</span>
+      </button>
+      <button class="btn-home" onclick="goTo('screen-landing')">
+        <span class="zh-text">回神殿</span>
+        <span class="en-text" style="display:none">Return to Temple</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

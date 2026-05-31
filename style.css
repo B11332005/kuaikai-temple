@@ -1,0 +1,614 @@
+/* ════════════════════════════════════════════
+   乖乖神殿 — style.css
+   ════════════════════════════════════════════ */
+
+/* ── 自訂字體 ── */
+@font-face {
+  font-family: 'ARYuanB5Ultra';
+  src: url('tsuhsianti-proportional.ttf') format('opentype');
+  font-weight: 900;
+}
+@font-face {
+  font-family: 'TsuhsianTi';
+  src: url('ARYuanB5Heavy.otf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'ARYuanB5Medium';
+  src: url('ARYuanB5Medium.otf') format('opentype');
+  font-weight: 400;
+}
+
+/* ── 字體 fallback 組合 ── */
+:root {
+  --font-display:  'ARYuanB5Ultra',   'Noto Serif TC', serif;
+  --font-heading:  'TsuhsianTi',      'Noto Sans TC',  sans-serif;
+  --font-body:     'ARYuanB5Medium',  'Noto Sans TC',  sans-serif;
+
+  /* 主視覺色系（對齊簡報） */
+  --cream:         #F0EDD8;
+  --cream-dim:     rgba(240,237,216,0.6);
+  --cream-faint:   rgba(240,237,216,0.08);
+
+  --red-deep:      #4A0C0C;
+  --red-mid:       #6B1A1A;
+  --red-accent:    #C4453A;
+  --red-light:     #F09090;
+
+  --yellow-deep:   #3A2E00;
+  --yellow-mid:    #6B5800;
+  --yellow-accent: #C49B00;
+  --yellow-light:  #F0D080;
+
+  --green-deep:    #0A1E0A;
+  --green-mid:     #1C4A1C;
+  --green-accent:  #3A7A3A;
+  --green-light:   #90C890;
+
+  --ink:           #0A0A0A;
+}
+
+/* ── RESET ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--ink);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ════════════════════════════════════════════
+   HALFTONE OVERLAY（網點效果）
+   ════════════════════════════════════════════ */
+.halftone-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  /* 多層網點：大點 + 小點疊加，模擬印刷網點 */
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.10) 1.2px, transparent 1.2px),
+    radial-gradient(circle, rgba(255,255,255,0.04) 0.6px, transparent 0.6px);
+  background-size: 14px 14px, 7px 7px;
+  background-position: 0 0, 7px 7px;
+}
+
+/* 各畫面的網點用各自主色調 */
+#screen-landing  .halftone-bg { background-image: radial-gradient(circle, rgba(240,237,216,0.10) 1.2px, transparent 1.2px), radial-gradient(circle, rgba(240,237,216,0.04) 0.6px, transparent 0.6px); background-size: 14px 14px, 7px 7px; background-position: 0 0, 7px 7px; }
+#screen-select   .halftone-bg { background-image: radial-gradient(circle, rgba(240,237,216,0.07) 1px,   transparent 1px),   radial-gradient(circle, rgba(240,237,216,0.03) 0.5px, transparent 0.5px); background-size: 12px 12px, 6px 6px; background-position: 0 0, 6px 6px; }
+#screen-drawing  .halftone-bg { background-image: radial-gradient(circle, rgba(240,237,216,0.12) 1.2px, transparent 1.2px), radial-gradient(circle, rgba(240,237,216,0.05) 0.6px, transparent 0.6px); background-size: 10px 10px, 5px 5px; background-position: 0 0, 5px 5px; }
+#screen-result   .halftone-bg { background-image: radial-gradient(circle, rgba(240,237,216,0.08) 1px,   transparent 1px),   radial-gradient(circle, rgba(240,237,216,0.03) 0.5px, transparent 0.5px); background-size: 12px 12px, 6px 6px; background-position: 0 0, 6px 6px; }
+
+/* ════════════════════════════════════════════
+   SCREENS
+   ════════════════════════════════════════════ */
+.screen {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ════════════════════════════════════════════
+   GLOBAL UI
+   ════════════════════════════════════════════ */
+.lang-toggle {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex; gap: 2px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(240,237,216,0.25);
+  border-radius: 20px;
+  padding: 3px;
+}
+.lang-btn {
+  padding: 4px 14px;
+  border-radius: 16px; border: none;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer; transition: all 0.2s;
+  font-family: var(--font-body);
+  background: transparent;
+  color: rgba(240,237,216,0.45);
+}
+.lang-btn.active { background: var(--cream); color: var(--ink); }
+
+.back-btn {
+  position: fixed;
+  top: 20px; left: 24px;
+  z-index: 100;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(240,237,216,0.18);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 12px; font-weight: 700;
+  color: rgba(240,237,216,0.45);
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+  display: none;
+}
+.back-btn:hover { color: var(--cream); border-color: rgba(240,237,216,0.35); }
+
+/* 四角星裝飾 */
+.deco-star {
+  position: absolute; pointer-events: none;
+  opacity: 0.4;
+  animation: twinkle 3s ease-in-out infinite;
+}
+.deco-star svg { display: block; }
+@keyframes twinkle {
+  0%,100% { opacity: 0.4;  transform: scale(1)    rotate(0deg); }
+  50%      { opacity: 0.85; transform: scale(1.18) rotate(18deg); }
+}
+
+/* 淡入動畫 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in         { animation: fadeInUp 0.55s ease-out forwards; }
+.fade-in-delay-1 { animation: fadeInUp 0.55s 0.1s  ease-out both; }
+.fade-in-delay-2 { animation: fadeInUp 0.55s 0.22s ease-out both; }
+.fade-in-delay-3 { animation: fadeInUp 0.55s 0.34s ease-out both; }
+
+/* ════════════════════════════════════════════
+   SCREEN 1 — LANDING
+   ════════════════════════════════════════════ */
+#screen-landing {
+  background: #1C4A1C;
+}
+
+/* ── 首頁背景裝飾圖 ── */
+
+.bg-deco {
+   position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300%;
+  max-width: 600px;
+  mix-blend-mode: lighten;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* 首頁網點用深綠色調 */
+#screen-landing .halftone-bg {
+  background-image:
+    radial-gradient(circle, rgba(240,237,216,0.10) 1.2px, transparent 1.2px),
+    radial-gradient(circle, rgba(240,237,216,0.04) 0.6px, transparent 0.6px);
+  background-size: 14px 14px, 7px 7px;
+  background-position: 0 0, 7px 7px;
+}
+
+.landing-content {
+  width: 100%;
+  max-width: 680px;
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -130px;
+}
+
+/* ── 首圖 ── */
+.hero-wrap {
+  width: 110%;
+  max-width: 680px;
+  position: relative;
+}
+.hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: lighten;
+}
+
+/* ── 進入按鈕：寬度綁 hero-wrap，等比縮放 ── */
+.btn-enter {
+  max-width: 1;
+  display: flex; align-items: center; justify-content: center; gap: 0.6em;
+  background: var(--cream); color: var(--ink);
+  border: none; border-radius: 999px;
+  padding: 0.3em 1em;
+  font-size: clamp(25px, 1vw, 30px);
+  font-weight: 900;
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  cursor: pointer; transition: all 0.28s;
+  position: relative; overflow: hidden;
+  margin-top: clamp(50px, 1vw, 80px);
+  z-index: 3;
+}
+.btn-enter::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.28), transparent);
+  border-radius: 999px;
+}
+.btn-enter:hover  { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(240,237,216,0.28); }
+.btn-enter:active { transform: translateY(0); }
+
+/* ════════════════════════════════════════════
+   SCREEN 2 — SELECT GOD
+   ════════════════════════════════════════════ */
+#screen-select { background: #080808; padding: 2rem; }
+
+.select-header {
+  position: relative; z-index: 2;
+  text-align: center; margin-bottom: 2.5rem;
+}
+.select-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 5vw, 50px); font-weight: 900;
+  color: var(--cream); margin-bottom: 0.5rem;
+}
+.select-header p {
+  font-family: var(--font-body);
+  font-size: 13px; letter-spacing: 0.14em;
+  color: rgba(240,237,216,0.38);
+}
+
+.gods-grid {
+  display: flex; gap: 1.5rem;
+  justify-content: center; flex-wrap: wrap;
+  position: relative; z-index: 2;
+  max-width: 1020px;
+}
+
+.god-card {
+  width: 288px; border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.38s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative; overflow: hidden;
+  border: 2px solid transparent;
+}
+.god-card:hover { transform: translateY(-10px) scale(1.025); }
+.god-card.green-card  { background: var(--green-deep);  border-color: rgba(58,122,58,0.45); }
+.god-card.red-card    { background: var(--red-deep);    border-color: rgba(196,69,58,0.45); }
+.god-card.yellow-card { background: var(--yellow-deep); border-color: rgba(196,155,0,0.38); }
+
+/* 卡片內部網點 */
+.god-card::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(240,237,216,0.06) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.god-card-inner {
+  padding: 2rem 1.5rem;
+  position: relative; z-index: 1;
+}
+
+/* 真實包裝圖 */
+.god-bag-img {
+  width: 160px; height: 195px;
+  margin: 0 auto 1.5rem;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+  transition: transform 0.3s ease;
+}
+.god-card:hover .god-bag-img {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.god-name {
+  font-family: var(--font-display);
+  font-size: 26px; font-weight: 900;
+  color: var(--cream);
+  text-align: center; margin-bottom: 4px;
+}
+.god-en-name {
+  font-family: var(--font-body);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em;
+  text-align: center; margin-bottom: 1.2rem;
+  opacity: 0.55;
+}
+
+.god-domains {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  justify-content: center; margin-bottom: 1.5rem;
+}
+.domain-tag {
+  font-family: var(--font-body);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 11px; border-radius: 12px;
+  border: 1px solid; opacity: 0.82;
+}
+.green-card  .domain-tag { border-color: rgba(58,122,58,0.65);   color: var(--green-light); }
+.red-card    .domain-tag { border-color: rgba(196,69,58,0.65);   color: var(--red-light); }
+.yellow-card .domain-tag { border-color: rgba(196,155,0,0.65);   color: var(--yellow-light); }
+
+.god-cta {
+  font-family: var(--font-heading);
+  text-align: center; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.14em; opacity: 0.45;
+  transition: opacity 0.2s;
+}
+.god-card:hover .god-cta { opacity: 1; }
+
+/* ════════════════════════════════════════════
+   SCREEN 3 — DRAWING
+   ════════════════════════════════════════════ */
+#screen-drawing { background: #050505; }
+
+.drawing-content {
+  position: relative; z-index: 2;
+  text-align: center; padding: 2rem;
+}
+
+.drawing-label {
+  font-family: var(--font-body);
+  font-size: 11px; letter-spacing: 0.32em;
+  color: rgba(240,237,216,0.38);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+/* ── 乖乖動畫容器 ── */
+.bag-animation-container {
+  width: 220px; height: 270px;
+  margin: 0 auto 2.5rem;
+  position: relative;
+}
+
+#animated-bag-img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.7));
+}
+
+/* 待機：晃動 */
+@keyframes bag-wobble {
+  0%,100% { transform: rotate(-2.5deg) scale(1); }
+  20%      { transform: rotate(2.5deg)  scale(1.02); }
+  40%      { transform: rotate(-1.5deg) scale(1.06); }
+  60%      { transform: rotate(3deg)    scale(1.03); }
+  80%      { transform: rotate(-2deg)   scale(1.01); }
+}
+
+/* 膨脹：明顯鼓起 */
+@keyframes bag-inflate {
+  0%   { transform: scale(1)    rotate(0deg);   filter: drop-shadow(0 10px 30px rgba(0,0,0,0.7)); }
+  15%  { transform: scale(1.08) rotate(-3deg);  }
+  30%  { transform: scale(1.18) rotate(3deg);   }
+  45%  { transform: scale(1.30) rotate(-2deg);  filter: drop-shadow(0 20px 50px rgba(255,200,50,0.3)); }
+  58%  { transform: scale(1.42) rotate(2deg);   }
+  70%  { transform: scale(1.55) rotate(-2deg);  filter: drop-shadow(0 25px 60px rgba(255,150,30,0.45)); }
+  82%  { transform: scale(1.65) rotate(1deg);   }
+  90%  { transform: scale(1.72) rotate(-1deg);  filter: drop-shadow(0 30px 70px rgba(255,100,20,0.55)); }
+  96%  { transform: scale(1.75) rotate(0deg);   opacity: 1; }
+  100% { transform: scale(0)    rotate(800deg); opacity: 0; filter: drop-shadow(0 0 0 transparent); }
+}
+
+/* 爆炸閃光 */
+@keyframes flash-bang {
+  0%   { opacity: 0; transform: scale(0.5); }
+  20%  { opacity: 1; transform: scale(1.8); }
+  60%  { opacity: 0.6; transform: scale(2.5); }
+  100% { opacity: 0; transform: scale(3); }
+}
+
+/* 碎片飛散 */
+@keyframes shard-fly {
+  0%   { opacity: 1; transform: translate(0,0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--tr)) scale(0.2); }
+}
+
+/* 玉米粒彈出 */
+@keyframes corn-pop {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  30%  { opacity: 1; transform: translate(var(--cx), calc(var(--cy) * 0.3)) scale(1.3); }
+  100% { opacity: 0; transform: translate(var(--cx), var(--cy)) scale(0.4); }
+}
+
+.bag-state-idle    { animation: bag-wobble 1.8s ease-in-out infinite; }
+.bag-state-inflate { animation: bag-inflate 2.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+
+/* 爆炸特效層 */
+.explosion-layer {
+  position: absolute; inset: -60px;
+  pointer-events: none; display: none;
+}
+
+/* 閃光圓 */
+.flash-circle {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* 碎片 */
+.shard {
+  position: absolute;
+  pointer-events: none;
+  animation: shard-fly 0.7s ease-out forwards;
+}
+
+/* 玉米粒 */
+.corn {
+  position: absolute;
+  left: 50%; top: 45%;
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  pointer-events: none;
+  animation: corn-pop 0.9s ease-out forwards;
+}
+
+/* 文字波 */
+@keyframes text-burst {
+  0%   { opacity: 0; transform: translate(-50%,-50%) scale(0) rotate(-10deg); }
+  40%  { opacity: 1; transform: translate(-50%,-50%) scale(1.3) rotate(5deg); }
+  70%  { opacity: 1; transform: translate(-50%,-50%) scale(1)   rotate(-2deg); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(0.6) rotate(0deg) translateY(-30px); }
+}
+.burst-text {
+  position: absolute;
+  left: 50%; top: 30%;
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 900;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: text-burst 0.8s ease-out forwards;
+}
+
+.drawing-btn {
+  border: none; border-radius: 40px;
+  padding: 17px 56px;
+  font-size: 16px; font-weight: 900;
+  font-family: var(--font-heading);
+  letter-spacing: 0.14em;
+  cursor: pointer; transition: all 0.28s;
+  margin-bottom: 1.5rem;
+}
+.drawing-btn:hover    { transform: translateY(-3px); }
+.drawing-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.drawing-note {
+  font-family: var(--font-body);
+  font-size: 11px; letter-spacing: 0.12em;
+  opacity: 0.28; max-width: 300px;
+  line-height: 1.9; margin: 0 auto;
+}
+
+/* ════════════════════════════════════════════
+   SCREEN 4 — RESULT
+   ════════════════════════════════════════════ */
+#screen-result { padding: 5rem 2rem 3rem; justify-content: flex-start; }
+
+.result-content {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 600px;
+  margin: 0 auto; text-align: center;
+}
+
+.result-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: 20px; padding: 6px 20px;
+  font-family: var(--font-body);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; margin-bottom: 2rem;
+  border: 1px solid;
+}
+
+.oracle-card {
+  border-radius: 20px; padding: 2.5rem 2rem;
+  margin-bottom: 1.5rem; position: relative; overflow: hidden;
+  border: 1px solid rgba(240,237,216,0.1);
+}
+.oracle-card::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(240,237,216,0.07) 1px, transparent 1px),
+    radial-gradient(circle, rgba(240,237,216,0.03) 0.5px, transparent 0.5px);
+  background-size: 10px 10px, 5px 5px;
+  background-position: 0 0, 5px 5px;
+  pointer-events: none;
+}
+
+.oracle-label {
+  font-family: var(--font-heading);
+  font-size: 20px; letter-spacing: 0.32em;
+  opacity: 0.38; margin-bottom: 1rem; display: block;
+}
+.oracle-text-zh, .oracle-text-en {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 30px); font-weight: 900;
+  line-height: 1.65; color: var(--cream);
+}
+.oracle-text-en { display: none; }
+
+.command-card {
+  border-radius: 16px; padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border: 1.5px dashed rgba(240,237,216,0.22);
+}
+.command-label {
+  font-family: var(--font-heading);
+  font-size: 18px; letter-spacing: 0.32em;
+  opacity: 0.38; margin-bottom: 0.8rem; display: block;
+}
+.command-text-zh, .command-text-en {
+  font-family: var(--font-body);
+  font-size: 12px; line-height: 1.85;
+  color: var(--cream); opacity: 0.88;
+}
+.command-text-en { display: none; }
+
+.buy-section {
+  background: rgba(240,237,216,0.04);
+  border-radius: 16px; padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(240,237,216,0.08);
+}
+.buy-label {
+  font-family: var(--font-heading);
+  font-size: 18px; letter-spacing: 0.26em;
+  opacity: 0.38; margin-bottom: 1rem;
+}
+.buy-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: 30px; padding: 13px 34px;
+  font-size: 12px; font-weight: 900;
+  font-family: var(--font-heading);
+  letter-spacing: 0.1em; cursor: pointer;
+  transition: all 0.25s; border: none;
+  color: var(--ink);
+}
+.buy-btn:hover { transform: translateY(-2px); }
+
+.result-actions {
+  display: flex; gap: 1rem;
+  justify-content: center; flex-wrap: wrap;
+}
+.btn-again, .btn-home {
+  border-radius: 30px; padding: 12px 28px;
+  font-size: 13px; font-weight: 700;
+  font-family: var(--font-heading);
+  letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
+}
+.btn-again {
+  border: 1.5px solid rgba(240,237,216,0.3);
+  background: transparent; color: var(--cream);
+}
+.btn-again:hover { border-color: var(--cream); background: rgba(240,237,216,0.08); }
+.btn-home {
+  border: none; background: rgba(240,237,216,0.08);
+  color: rgba(240,237,216,0.55);
+}
+.btn-home:hover { background: rgba(240,237,216,0.14); color: var(--cream); }
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .gods-grid { flex-direction: column; align-items: center; }
+  .god-card  { width: 100%; max-width: 320px; }
+  .three-gods-preview { flex-direction: column; align-items: center; gap: 0.6rem; }
+}
