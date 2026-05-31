@@ -19,21 +19,21 @@ const godInfo = {
     img: 'bag-green.png',
     badgeZh: '🟢 綠色乖乖 · 人生與健康 🟢', badgeEn: '🟢 Green Kuai Kuai · Life & Health 🟢' ,
     buyZh: ' 去買一包綠色乖乖 → 奶油椰子口味 ', buyEn: ' Get a Green Kuai Kuai → Butter Coconut Flavor ',
-    flashColor: '#90C890', burstText: '開運！'
+    flashColor: '#90C890', burstText: '開運！', burstTextEn: 'Good Luck!'
   },
   red: {
     color: '#6B1A1A', accent: '#C4453A', light: '#F09090',
     img: 'bag-red.png',
     badgeZh: '🔴 紅色乖乖 · 愛情與人際 🔴', badgeEn: '🔴 Red Kuai Kuai · Love & Relations 🔴' ,
     buyZh: ' 去買一包紅色乖乖 → 香濃巧克力口味 ', buyEn: ' Get a Red Kuai Kuai → Rich Chocolate Flavor ',
-    flashColor: '#F09090', burstText: '有緣！'
+    flashColor: '#F09090', burstText: '有緣！', burstTextEn: 'Destined!'
   },
   yellow: {
     color: '#6B5800', accent: '#C49B00', light: '#F0D080',
     img: 'bag-yellow.png',
     badgeZh: '🟡 黃色乖乖 · 財富與運勢 🟡', badgeEn: '🟡 Yellow Kuai Kuai · Wealth & Fortune 🟡' ,
     buyZh: ' 去買一包黃色乖乖 → 五香口味 ', buyEn: ' Get a Yellow Kuai Kuai → Five-Spice Flavor ',
-    flashColor: '#F0D080', burstText: '發財！'
+    flashColor: '#F0D080', burstText: '發財！', burstTextEn: 'Get Rich!'
   }
 };
 
