@@ -542,7 +542,7 @@ body {
   font-size: clamp(30px, 4vw, 30px); font-weight: 900;
   line-height: 1.65; color: var(--cream);
 }
-.oracle-text-en { display: none; }
+/* .oracle-text-en { display: none; } */
 
 .command-card {
   border-radius: 16px; padding: 1.5rem 2rem;
@@ -559,7 +559,7 @@ body {
   font-size: 12px; line-height: 1.85;
   color: var(--cream); opacity: 0.88;
 }
-.command-text-en { display: none; }
+/* .command-text-en { display: none; } */
 
 .buy-section {
   background: rgba(240,237,216,0.04);
