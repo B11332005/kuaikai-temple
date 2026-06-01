@@ -125,7 +125,7 @@ body {
 
 .back-btn {
   position: fixed;
-  top: 31px; left: 24px;
+  top: 32.5px; left: 24px;
   z-index: 100;
   background: rgba(0,0,0,0.6);
   border: 1px solid rgba(240,237,216,0.18);
