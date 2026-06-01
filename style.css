@@ -254,6 +254,7 @@ body {
 .select-header {
   position: relative; z-index: 2;
   text-align: center; margin-bottom: 2.5rem;
+  margin-top: 80px;
 }
 .select-header h2 {
   font-family: var(--font-display);
